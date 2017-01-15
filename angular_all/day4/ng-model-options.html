@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script src="../baseJs/angular.js"></script>
+    <script src="../baseJs/angular.sanitize.min.js"></script>
+    <script src="../baseJs/jquery.js"></script>
+
+</head>
+<style>
+</style>
+<body>
+    <div ng-controller="myController">
+        <input ng-model-options="{updateOn:'blur'}" ng-model="value" type="text"/>{{value}}
+     </div>
+</body>
+<script>
+    var myapp=angular.module("myapp",["ngSanitize"]);
+    myapp.controller("myController",["$scope","$interval",function($scope,$interval){
+
+    }])
+</script>
+</html>

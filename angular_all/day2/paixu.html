@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="mui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css"/>
+    <script src="../baseJs/angular.js"></script>
+
+</head>
+<style>
+	html,body{
+		height: 100%;
+	}
+	body{
+		display: flex;
+		flex-flow: column;
+		justify-content: space-between;
+	}
+	header{
+		flex-grow: 0;flex-shrink: 0;
+	}
+	section{
+		flex-grow: 1;overflow: scroll;
+	}
+</style>
+<body ng-controller="myController">
+    <header class="container-fluid">
+    	<div class="mui-input-row mui-search">
+			<input ng-model='filterBy' type="search" class="mui-input-clear" placeholder="">
+		</div>
+		<div class="form-group">
+			<button ng-click="key='price';keyBy=!keyBy" class="btn btn-success">价格</button>
+			<button ng-click="key='hot';keyBy=!keyBy" class="btn btn-success">人气</button>
+		</div>
+    </header>
+    <section>
+    	<ul>
+    		<li ng-repeat="data in dataList | myOrderBy: key :keyBy | myFilter:filterBy">
+    			<h4>{{data.name}}</h4>
+    			<p>价格:{{data.price}};&nbsp;&nbsp;&nbsp;人气:{{data.hot}}</p>
+    		</li>
+    	</ul>
+    </section>
+</body>
+<script>
+    var myapp=angular.module("myapp",[]);
+    
+    myapp.controller("myController",function($scope){
+    	$scope.filterBy='';
+    	$scope.key='price';
+    	$scope.keyBy=true;
+    	$scope.dataList=[
+    		{name:"iphone7",price:"5000",hot:97 },    		
+    		{name:"小米4",price:"2999",hot:68},
+    		{name:"iphone6",price:"4000",hot:95},
+    		{name:"华为荣耀3C",price:"3500",hot:101},
+    		{name:"OPPOR9",price:"300",hot:10},
+    		{name:"iphone5",price:"1500",hot:66},
+    		{name:"SUMSUNG",price:"1999",hot:55},
+    		{name:"NOKIA",price:"1499",hot:60},
+    		{name:"iphone4s",price:"700",hot:55}
+    	]
+    })
+    
+    myapp.filter('myOrderBy',function(){
+    	return function(arr,key,style){
+    		if(!key){
+    			return arr;
+    		}
+    		var _arr=arr.sort(function(a,b){   			
+    			var va=a[key];
+    			var vb=b[key];
+    			if(style){
+    				return vb-va;
+    			}else{
+    				return va-vb;
+    				
+    			}
+    			
+    		})
+    		return _arr;   		
+    	}
+    })
+    
+
+	myapp.filter("myFilter",function(){
+		return function(arr,s){
+			
+			if(s==''){
+				return arr;
+			}
+//			var _s=s.toString();
+			var _arr=[];
+			for (var i=0;i<arr.length;i++) {
+				for (var j in arr[i]) {
+					var _value=arr[i][j]+'';	
+					if(_value.indexOf(s)>=0&&j=='name'){
+						_arr.push(arr[i]);
+						break;
+					}
+				}
+			}
+//			angular.forEach(arr,function(obj,index){
+//				angular.forEach(obj,function(value,key){
+//					var _value=value+'';
+//					if(_value.indexOf(s)>=0){
+//						console.log(obj)
+//						_arr.push(obj)
+//					}
+//				})
+//			})			
+			return _arr;
+			
+		}
+	})
+
+
+	
+</script>
+</html>

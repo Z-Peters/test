@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script src="../baseJs/angular.js"></script>
+    <script src="ayModule.js" type="text/javascript" charset="utf-8"></script>
+    <script src="zhqModule.js" type="text/javascript" charset="utf-8"></script>
+    
+    <script src="../baseJs/jquery.js"></script>
+
+</head>
+<style>
+</style>
+<body>
+	<p>自定义模块是angular的模块系统这个特性的体现，开发者可以通过自定义模块来进行功能划分，方便于协同开发，提高代码的复用性</p>
+    
+    <div ng-controller="myController">
+    	{{'abcdefg' | ayFirstUpper}}
+    	{{'abcdefg' | aySomeUpper:3}}
+     </div>
+</body>
+<script>
+	
+    var myapp=angular.module("myapp",['ayModule','zhqModule']);
+	myapp.config(function(zhqServiceProvider){
+		zhqServiceProvider.isInt=true;
+	})
+    myapp.controller("myController",["$scope","zhqService",function($scope,zhqService){
+        console.log(zhqService.getRandomNum(5,10))
+    }])
+</script>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <script src="js/angular.js"></script>
+</head>
+<body>
+	<h3>ng-click</h3>
+	<p>给元素添加点击事件（如果改变了数据的话，内部自动执行脏数据检验）</p>
+	<p>使用原生的例如setTimeout来改变数据的话，数据会改变，但是视图不会更改，这个时候，需要执行$scope.$apply() 脏数据检验</p>
+	<p>使用angularjs的定时器服务 $timeout,用法和seTimeout一样，内部自动执行脏数据检验</p>
+	<p>如果想使用服务，需要在控制器里注入服务</p>
+  <div ng-controller="myController">
+  		我是名字是：{{xiuxiu.name}}<br/>
+  		我是年龄是：{{xiuxiu.age}}<br/>
+  		我是：{{xiuxiu.sex}}<br/>
+  	<button ng-click="toTailand()" class="btn btn-success">去泰国</button>
+  	<button ng-click="toKoren()" class="btn btn-success">去韩国</button>
+  </div>
+
+</body>
+
+<script>
+    var myapp=angular.module("myapp",[]);
+    myapp.controller("myController",function($scope,$timeout){
+    	$scope.xiuxiu={
+    		name:"秀秀",
+    		age:36,
+    		sex:'male'
+    	}
+    	$scope.toTailand=function(){
+    		$scope.xiuxiu.sex="female";
+    	}
+    	$scope.toKoren=function(){
+    		$scope.xiuxiu.age=76;
+    		$scope.xiuxiu.name='朴一生';
+    	}
+    	
+//  	setTimeout(function(){
+//  		$scope.xiuxiu.age=76;
+//  		$scope.xiuxiu.name='朴一生';
+//			$scope.$apply();
+//  	},2000)
+
+		$timeout(function(){
+	  		$scope.xiuxiu.age=76;
+	  		$scope.xiuxiu.name='朴一生';
+	  	},2000)
+		
+    	
+    })
+    
+    
+
+</script>
+</html>

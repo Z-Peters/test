@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		好友列表：
+	</div>
+	<div class="panel-body">
+		<ul class="list-group">
+			<!--<a  ng-click="cperson.name=x.name;cperson.tel=x.tel;cperson.img=x.img" href="#/concatDetail" class="list-group-item" ng-repeat='x in person'>-->
+			<a  ng-click="changePerson(x.name,x.tel,x.img)" href="#/concatDetail" class="list-group-item" ng-repeat='x in person'>
+				<span ng-bind='x.name'></span>
+				<span class="pull-right" ng-bind='x.tel'></span>
+			</a>
+		</ul>
+	</div>
+</div>

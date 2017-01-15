@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+</style>
+<body>
+    <div ng-controller="myController">
+    	<p>用表达式在标签内部输出一个数据的话，这个时候如果angular.js加载在底部的话，会出现{{}}闪烁：</p>
+    	<p>{{name}}</p>
+    	<p>使用ng-bind,会将原标签内部所有的内容都给替换成数据</p>
+    	<p ng-bind='name'><span>111</span></p>
+    	<p>并且还有一个缺点就是只能输出指定的内容，不能想表达式一样后面还可以跟别的东西</p>
+    	<p>这个时候可以使用ng-bind-template来解决，但是注意，数据需要用表达式的形式来写</p>
+    	<p ng-bind-template='{{name}}--111'></p>
+    	<p>但是，又有问题了，不能解析标签</p>
+    	<p ng-bind-template='{{text}}'></p>
+    	
+    	<p>想要解析标签，那么就用ng-bind-html指令，但是引入的angular.js没有这个指令，这个指令在sanitize模块里，也就是说需要在应用的主模块里去引入sanitize模块，并且，这个指令只能输出解析变量数据里的标签</p>
+    	<p ng-bind-html='text'></p>
+    	<p>为了某些业务需求。可能需要显示{{1+2}}，但是老是就当成表达式处理，这个时候可以加ng-non-bindable，这个指令可以控制标签内部的表达式不解析</p>
+    	<p ng-non-bindable>{{1+2}}</p>
+    	<p>{{txt}}</p>
+    	
+    	<p>想要引入大段 的html的部分，用ng-bind-html需要在M层创建大段的字符串，容易出错</p>
+    	<div ng-bind-html='lis'></div>
+    	
+    	
+    	<p>这个时候用ng-include,原理就是利用ajax来取得路径对应的文件的内容,并且在这个代码片段可以加入表达式或者是指令，其实就和在对应的位置写代码是一样，优点就是便于维护和代码复用</p>
+    	
+    	<div ng-include='ulPath'></div>
+    	
+    	
+    	<input ng-model-options="{updateOn:'blur'}" type="text" ng-model='uname' />{{uname}}
+    	
+     </div>
+</body>
+<script src="../baseJs/angular.js"></script>
+<script src="../baseJs/angular.sanitize.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../baseJs/jquery.js"></script>
+<script>
+
+
+    var myapp=angular.module("myapp",['ngSanitize']);//第二个参数是引入其他模块的数组
+    myapp.controller("myController",["$scope",function($scope){
+    	$scope.name='xiuxiu';
+    	$scope.text='<h1>'+$scope.name+'</h1>';
+    	$scope.txt='{{1+2}}';
+    		$scope.lis='<ul><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li></ul>';
+    		
+    	$scope.ulPath='./ul.html';
+    	$scope.dataList=[
+    		{name:"iphone7",price:"5000",hot:97 },    		
+    		{name:"小米4",price:"2999",hot:68},
+    		{name:"iphone6",price:"4000",hot:95}
+    	]
+    }])
+</script>
+</html>

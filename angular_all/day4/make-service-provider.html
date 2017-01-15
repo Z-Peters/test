@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script src="../baseJs/angular.js"></script>
+    <script src="../baseJs/jquery.js"></script>
+
+</head>
+<style>
+	.head.j_f{
+		color: red;
+	}
+</style>
+<body>
+	<p>通过provider方法创建出来的服务是有服务供应商的，是可以通过配置服务供应商来使服务达到不同的效果</p>
+	<p>在回调函数里第一次return出来的必须是个对象，这个对象就是服务供应商</p>
+	<p>return出来的服务供应商必须有一个方法$get，在这个方法里return出来的才是真正的服务</p>
+	<div class="j_f head">111</div>
+	<div class="head">111</div>
+    <div ng-controller="myController">
+        {{num}}
+     </div>
+</body>
+<script>
+	var myapp=angular.module("myapp",[]);
+	//
+//	myapp.factory("myService",function(){
+//		return 123;
+//	})
+	myapp.provider("myService",function(){
+		return {
+			isInt:false,
+			$get:function(){
+				var _provider=this;
+				return {
+					getRandomNum:function(num1,num2){
+						if(!_provider.isInt){
+							return Math.random()*(num2-num1)+num1;
+						}else{
+							return Math.floor(Math.random()*(num2-num1)+num1);
+						}
+						
+					}
+				}
+			}
+		}
+	})
+	
+	myapp.provider("myInternet",function(){
+		return {
+			speed:"2M",
+			$get:function(){
+				var _provider=this;
+				return {
+					useInternet:function(){						
+						console.log('您正在上网，网速是'+_provider.speed)
+					}
+				}
+			}
+		}
+	})
+	
+	myapp.config(function(myInternetProvider){
+		myInternetProvider.speed='8M'
+	})
+	
+	myapp.config(function(myServiceProvider){
+		myServiceProvider.isInt=true;
+	})
+	
+	myapp.controller("myController",function($scope,myService,myInternet){
+		console.log(myService.getRandomNum(5,10))
+//		myInternet.useInternet();
+	})
+	
+</script>
+</html>

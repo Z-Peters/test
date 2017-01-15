@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script src="../baseJs/angular.js"></script>
+    <script src="../baseJs/angular.sanitize.min.js"></script>
+    <script src="../baseJs/jquery.js"></script>
+
+</head>
+<style>
+</style>
+<body>
+    <div ng-controller="myController">
+		绝对地址：{{abs}}<br />
+		域名：{{host}}<br />
+		端口：{{port}}<br />
+		协议：{{protocol}}<br />
+		<p>$location.path()获取hash值,也可以设置</p>
+     </div>
+</body>
+<script>
+    var myapp=angular.module("myapp",[]);
+    myapp.controller("myController",["$scope","$interval","$location",function($scope,$interval,$location){
+    $scope.abs=$location.absUrl()//输出绝对地址
+	$scope.host=$location.host()//输出域名
+	$scope.port=$location.port()//输出端口
+	$scope.protocol=$location.protocol()//协议
+	
+//		
+		$location.path('bbb')
+		
+		
+
+    }])
+</script>
+</html>

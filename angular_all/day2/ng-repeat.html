@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="iconfont/iconfont.css"/>
+
+    <script src="../baseJs/angular.js"></script>
+    <script src="../baseJs/jquery.js"></script>
+
+</head>
+<style>
+	.num1{
+		font-size: 1.5em;
+	}
+	.red{
+		background: red;
+	}
+	.blue{
+		background: blue;
+	}
+</style>
+<body>
+	<p>class内部通过表达式来判断之后输出类名的时候，并不影响其他的类名class="{{1>0?'a':'b'}} oDiv"  class="a oDiv"</p>
+    <p>ng-class可以根据三元表达式来做出判断并且添加一个类名，但是只能写一个，本来的类名依然用class去写就性了，如果多重判断的话，在控制器里去写，最后确定一个数据，放在ng-class里就好了</p>
+    <div ng-controller="myController">
+        <ul>
+        	<!--<li ng-repeat='data in dataList' class='{{$even?"red":"blue"}}'>-->
+        	<li ng-repeat='data in dataList'  ng-class='$even?"red":"blue"'>
+        		{{$index+1}}.<i class="iconfont" ng-bind='data.icon'></i><span>{{data.className}}</span>
+        		;{{$first}};{{$last}};{{$middle}};{{$even}};{{$odd}}       		
+        	</li>
+        </ul>
+        <div class="{{1>0?'a':'b'}} oDiv">zzz</div>
+     	<div class="oDiv" ng-class="cn">zzz</div>
+     </div>
+     
+</body>
+<script>
+    var myapp=angular.module("myapp",[]);
+    
+    myapp.controller("myController",["$scope",function($scope){
+//        http://datainfo.duapp.com/shopdata/getclass.php
+		$scope.cn='c'
+		if(2<0){
+			$scope.cn='d'
+		}
+		if(1>0){
+			$scope.cn+=" ";
+			$scope.cn+="a";
+		}
+		$scope.dataList=[];
+		$scope._dataList=[1,2,3,4,5,6]
+       	$.ajax({
+       		url:"http://datainfo.duapp.com/shopdata/getclass.php",
+       		success:function(data){
+       			$scope.dataList=angular.fromJson(data);
+       			$scope.$apply();
+//     			var str='';
+//     			$(JSON.parse(data)).each(function(){
+	
+//     				str+='<li><i class="iconfont">'+this.icon+'</i><span>'+this.className+'</span></li>'
+//     			})
+//     			$("ul").html(str)
+       		}
+       	})
+    }])
+</script>
+</html>

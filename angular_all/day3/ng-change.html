@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script src="../baseJs/angular.js"></script>
+    <script src="../baseJs/jquery.js"></script>
+
+</head>
+<style>
+</style>
+<body>
+    <div ng-controller="myController">
+       <input ng-change="change()" ng-model='txt' type="text" /><span style="color: red;">{{message}}</span>
+     </div>
+</body>
+<script>
+    var myapp=angular.module("myapp",[]);
+    myapp.controller("myController",["$scope",function($scope){
+    	$scope.message='';
+    	$scope.change=function(){
+    		if($scope.txt.length>10){
+    			$scope.message='只能输入十位';
+    			$scope.txt=$scope.txt.substr(0,10);
+    		}else{
+    			$scope.message='';
+    		}
+    	}
+    }])
+</script>
+</html>

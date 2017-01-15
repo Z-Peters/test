@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" ng-app='myapp'>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="mui.min.css"/>
+</head>
+<style>
+	section{
+		padding-top: 50px;
+	}
+</style>
+<body ng-controller="mainController">
+	<header class="mui-bar mui-bar-nav">	    
+	    <h1 class="mui-title">微信</h1>
+	</header>
+	
+	<section ng-view class="container">
+		
+	</section>
+	
+	<nav class="mui-bar mui-bar-tab">
+		<a class="mui-tab-item" href="#/chat">
+			<span class="mui-icon mui-icon-home"></span>
+			<span class="mui-tab-label">聊天</span>
+		</a>
+		<a class="mui-tab-item"  href="#/concat">
+			<span class="mui-icon mui-icon-list"></span>
+			<span class="mui-tab-label">联系人</span>
+		</a>
+		<a class="mui-tab-item" href="#/circle">
+			<span class="mui-icon mui-icon-paperplane"></span>
+			<span class="mui-tab-label">朋友圈</span>
+		</a>
+	</nav>
+</body>
+
+<script src="../baseJs/angular.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../baseJs/angular.route.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="../baseJs/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	//单页面应用：只有一个入口页面，在这个页面里通过一系列的设置及操作，显示不同功能部分的显示，不同于选项卡的是使用路由机制，可以把页面的独立功能部分分化成独立的代码片段并引入，主要依赖的是hashchange事件以及ajax技术
+	
+	//1.引入angular.route.js，并把ngRoute模块注入到应用主模块里
+	
+	//2.配置路由服务的服务供应商，也是$routeProvider，$location.path('/'+name)  可以获取hash值也可以设置hash值
+	
+	//3.when里面两个参数，第一个参数是要切换页面时的hash值，第二个参数是一个object
+	
+	//4.这个object的参数有  template，templateUrl
+	
+	//5.还是一个参数是controller，可以为每一个路由小页面去创建一个控制器，也就是说路由的每一部分如果要使用共同的数据，可以把数据放到主控制器，独立的数据就可以放到自己的小控制器里
+	
+	//6.控制器会在起作用的时候触发，小控制器每次切换过来的时候都会重新执行一次（重新启用）
+	
+	//7.除了when还有一个otherwise，里面传一个对象，对象有一个键值对  redirectTo，可以设置当hash值不属于咱们配置任何一种情况的时候，就定向到某一个情况下
+
+
+	var myapp=angular.module("myapp",['ngRoute']);
+	
+	
+	//配置路由表
+	
+	myapp.config(function($routeProvider){
+		$routeProvider.when('/chat',{
+			templateUrl:"temp/chat.html",
+			controller:"chatController"
+		}).when('/concat',{
+			templateUrl:"temp/concat.html",
+			controller:"concatController"
+		}).when('/circle',{
+			templateUrl:"temp/circle.html",
+			controller:"circleController"
+		}).when('/concatDetail',{
+			templateUrl:"temp/concatDetail.html",
+			controller:"concatDetailController"
+		}).otherwise({
+			redirectTo:"/chat"
+		})
+	})
+	
+	
+	myapp.run(function($rootScope){
+		$rootScope.rcperson={
+			name:'',
+			tel:'',
+			img:''
+		}
+	})
+	myapp.controller("mainController",function($scope,$location){
+		$location.path('/chat');
+		
+		$scope.cperson={
+			name:'',
+			tel:'',
+			img:''
+		}
+	})
+	myapp.controller("chatController",function($scope,$location){
+		
+	})
+	myapp.controller("concatController",function($scope,$location,$rootScope){
+		$scope.person=[
+			{name:"秀秀",tel:"18546786523",img:"./img/xiuxiu.jpg"},
+			{name:"子龙",tel:"18121225773",img:"./img/zilong.jpeg"},
+			{name:"崔健",tel:"18545214783",img:"./img/cuijian.jpeg"},
+			{name:"曙光",tel:"13185276222",img:"./img/shuguang.jpg"}
+		]
+		
+		$scope.changePerson=function(name,tel,img){
+			$rootScope.rcperson={
+				name:name,
+				tel:tel,
+				img:img
+			}
+		}
+	})
+	myapp.controller("circleController",function($scope,$location){
+		
+	})
+	myapp.controller("concatDetailController",function($scope,$location){
+		
+	})
+	
+	
+	
+	myapp.run(["$rootScope",function($rootScope){
+	    $rootScope.$on("$routeChangeStart",function(ele,curr,pre){
+			//第二个参数是要切换的页面
+			//第三个参数是当前的页面
+	    })
+	    $rootScope.$on("$routeChangeSuccess",function(ele,curr,pre){
+//			第二个参数是当前的页面
+//			第三个参数是上一个页面
+	    })
+	}])
+	
+</script>
+
+</html>

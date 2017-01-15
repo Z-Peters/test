@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../baseJs/angular.js"></script>
+</head>
+<style>
+	#oDiv{
+		width: 100px;
+		height: 100px;
+		background: blue;
+	}
+	.red{
+		background: red;
+	}
+</style>
+<body>
+   <div id='oDiv'>
+   	
+   </div>
+   <div id="div1">
+   	{{1+2}}
+   </div>
+   <div id="div2">
+   	{{3+4}}
+   </div>
+</body>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+	
+
+//	1.可以输出angular的版本号
+//	console.log(angular.version)
+	
+	
+//  2.angular.copy(a)可以深拷贝出a来，返回出拷贝的结果
+//	var arr1=[1,2,3];
+//	var arr2=angular.copy(arr1);
+//	arr2.push(4)
+//	console.log(arr2)
+//	console.log(arr1)
+//	
+//	function copy(arr){
+//		var _arr=[];
+//		for (var i=0;i<arr.length;i++) {
+//			_arr.push(arr[i])
+//		}
+//		
+//		return _arr;
+//	}
+
+//  3.angular.extend(a,b)
+//    可以让a拥有b的属性property  method,同名的会覆盖
+
+//	var a={
+//		name:"allen",
+//		age:12
+//	}
+//	var b={
+//		name:"alex",
+//		sex:'female',
+//		say:function(){
+//			alert(this.name)
+//		}
+//	}
+//	angular.extend(a,b);
+//	console.log(a)
+//	a.say()
+
+	
+//	4.angular.equals();  确实比较坑，也体现安格拉小姐的脾气  ，  善良
+//	alert(NaN===NaN)
+//	alert(angular.equals(1,'1')) false
+//	alert(angular.equals(1,1))   true
+//	alert(angular.equals([1],[1]))   true!!!
+//	alert(angular.equals(NaN,NaN))   true!!!
+
+
+//	5.angular.forEach(a,function(obj,index){})  遍历数组、集合、对象   注意：和jq的each方法回调函数形参相反
+
+
+//	var arr=[1,2,3];
+//	var obj={
+//		name:"allen",
+//		sex:"female",
+//		age:18
+//	}
+//	$(arr).each(function(i,obj){
+//		console.log(obj)
+//	})
+//	$.each(arr, function(i,obj) {
+//		console.log(i)
+//	});
+
+//	arr.forEach(function(obj,index){//ES5
+//		
+//	})
+
+//	angular.forEach(arr,function(obj,index){
+//		console.log(arguments)
+//	})
+
+//	angular.forEach(obj,function(value,key){
+//		console.log(arguments)
+//	})
+
+
+
+//  6.angular.toJson() obj->str angular.formJson() str->obj   JSON.parse() obj->string JSON.stringify() string->obj
+//   逻辑是相反的，和你认为的是不一样的
+//	var arr=[1,2,3];
+//	var str=JSON.stringify(arr);
+//	console.log(str)
+//	console.log(arr)
+//	console.log(angular.fromJson(str))
+//	console.log(angular.toJson(arr))
+
+
+//	7.uppercase() 转换成大写  lowercase()  装换成小写
+//	String.toUpperCase()
+//	String.toLowerCase()
+//	console.log(angular.uppercase('Allen'))
+//	console.log(angular.lowercase('Allen'))
+
+	
+//	8.angular.element() 获取元素
+//	$("#oDiv").addClass("red")
+//	$("#oDiv")   找见dom元素,变成jq对象
+//	angular.element(document.getElementById("oDiv"))//angular.element不能找见dom元素，只能做包装
+//	angular.element(document.getElementById("oDiv")).addClass("red")
+
+
+//	9.angular.bootstrap(dl,['moduleName'])手动的把某一个模块在某一个标签上启动
+//	var app1=angular.module("m1",[]);
+//	var app2=angular.module("m2",[]);
+//	
+//	angular.bootstrap(document.getElementById("div1"),['m1']);
+//	angular.bootstrap(document.getElementById("div2"),['m2']);
+
+//	10. angular.bind() 可以返回出和原函数一样，但是内部this和形参可能都改变了的函数
+//   要注意，虽然和call和apply挺像，都可以改变函数的this指向，也可以传入参数
+//   angular.bind返回出来的是一个新的函数，第一个参数是改变之后的this指向，第二个参数要copy的原函数，第三个参数
+//  是给新函数传入固定的参数值
+//	function a(age){
+//		alert(this.name+"_"+age)
+//	}
+//	var obj={
+//		name:"allen"
+//	}
+//	
+//	var _a=angular.bind(obj,a,19);
+//  a(19)//_19
+//	_a(20);//allen_19
+//	_a(21);//allen_19
+
+
+
+</script>
+</html>

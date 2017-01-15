@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+	
+    <script src="../baseJs/angular.js"></script>
+   
+    <script src="../baseJs/jquery.js"></script>
+
+</head>
+<style>
+</style>
+<body>
+	<p>服务使用场景：在控制器里使用，在其他的服务里使用，使用的方法：依赖注入</p>
+	<p>服务的特点：服务是为了实现某些功能，服务没有规定的格式，可能是object。function。arr等等</p>
+	<p>angular自带的服务：$scope,$timeout,$interval,$rootScope,$filter,$location,$log,$http</p>
+	<p>angular自定义服务的方法：factory,provider,service</p>
+	<p>创建服务的第一个参数是自定义的服务的名字，第二个参数是回调函数，可以注入其他的依赖的服务</p>
+	<p>factory创建的服务：1.没有服务供应商，回调函数return出来的就是真正的服务</p>
+	<p>provider创建的服务：1.拥有服务供应商，回调函数return出来的是服务供应商，服务供应商有$get
+	方法，在这个方法里return出来的才是真正的服务   2.可以通过配置服务供应商来让服务实现不同的功能</p>
+	<p>myapp.config(function(myServiceProvider){<br/>
+		myServiceProvider.speed="4M";<br/>
+	})</p>
+	<p>service创建的服务：1.第二个参数直接会被angular--new成实例，new出来的实例就是真正服务  2.因为真正的服务是被new出来的，所以服务的数据类型是objet</p>
+    <div ng-controller="myController">
+
+     </div>
+</body>
+<script>
+    var myapp=angular.module("myapp",[]);
+	
+	myapp.factory("myService",function($http){
+		return {//真正的服务
+			
+		}
+	})
+	myapp.provider("myService",function($http){
+		return {//服务供应商
+			speed:"2M",
+			$get:function(){
+				
+				return {//真正的服务
+					
+				}
+			}
+		}
+	})
+	myapp.config(function(myServiceProvider){
+		myServiceProvider.speed="4M";
+	})
+	myapp.service("myService",function(){
+		this.speed="2M"
+	})
+	myapp.controller("myController",function($scope){
+		
+	}) 	
+	
+</script>
+</html>

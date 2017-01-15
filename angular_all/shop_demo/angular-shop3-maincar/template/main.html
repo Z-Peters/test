@@ -1,0 +1,43 @@
+<p class="text-info">欢迎光临大海水果店。</p>
+<p class="text-info">请选择您要的产品并将其添加到您的购物车。</p>
+<p class="text-info">当您完成后，请单击“购物车图标”来查看您的订单信息。</p>
+<p class="text-info">
+	搜索：
+	<input ng-model='filterBy' class="form-control" type="text" name="" id="" value="" />
+</p>
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		商品列表
+		
+		<a href="#/car" class="pull-right">
+			<span class="glyphicon glyphicon-shopping-cart"></span>
+			<span ng-bind="allNum"></span>件，
+			<span class="glyphicon glyphicon-euro" ng-bind="allPrice | currency:''"></span>
+		</a>
+	</div>
+	<div class="panel-body">
+		<table class="table table-bordered">
+			<tr>
+				<th>图片</th>
+				<th>介绍</th>
+				<th>价格</th>
+				<th>操作</th>
+			</tr>
+			<tr ng-repeat='x in dataList | filter:filterBy'>
+				<td class="text-center"><img src="{{x.imgUrl}}"/></td>
+				<td class="">
+					<a href="" ng-bind="x.name"></a>
+					<p ng-bind="x.description"></p>
+				</td>
+				<td ng-bind='x.price | currency:"￥"'>
+					
+				</td>
+				<td>
+					<a ng-click="addCar(x.id,x.name,x.price)">加入购物车</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+

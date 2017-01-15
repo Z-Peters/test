@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="load.css"/>
+    <script src="../baseJs/angular.js"></script>
+    <script src="../baseJs/jquery.js"></script>
+</head>
+<style>
+
+</style>
+<body ng-controller="myController">
+	<h4>$http服务</h4>
+	<p>url:要请求的数据接口地址</p>
+	<p>method:请求方式</p>
+	<p>params:传递的参数</p>
+	<p>success,error,链式调用   成功回调和错误回调</p>
+	{{dataList}}
+</body>
+<script>
+	var myapp=angular.module("myapp",[]);
+	myapp.controller("myController",function($scope,$http){
+		$scope.dataList=[];
+		$http({
+			url:"http://datainfo.duapp.com/shopdata/getclass.php",
+			method:"get",
+			params:{
+				a:1
+			}			
+		}).success(function(data){
+			$scope.dataList=data;
+		}).error(function(message){
+			
+		})
+	})
+</script>
+</html>

@@ -1,0 +1,22 @@
+<?php
+				include "php/concat.php";
+				$sql="select * from student";
+				$result=mysql_query($sql);
+				$num=0;
+				while ($row=mysql_fetch_array($result)){
+//					var_dump($row)
+					$num++;				
+					echo "<tr data-id=".$row['id'].">";
+					//获取当前id
+					echo "<th>".$num."</th>";
+					echo "<th>".$row['name']."</th>";
+					if($row['sex']==0){
+						echo "<th>男</th>";
+					}else{
+						echo "<th>女</th>";
+					}
+					echo "<th>".$row['age']."</th>";
+					echo '<th><button class="btn btn-primary del">del</button></th>';
+					echo "</tr>";
+				}	
+			?>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="angular.js"></script>
+</head>
+<style>
+html,body,ul,li{margin: 0;padding: 0;}
+	html,body{
+		height: 100%;
+	}
+	body{
+		display: flex;
+		flex-flow: column;
+		justify-content: space-between;
+	}
+	header{
+		flex-grow: 0;flex-shrink: 0;
+	}
+	section{
+		flex-grow: 1;overflow: scroll;
+	}
+</style>
+<body ng-controller="myController">
+    <header class="container-fluid">
+    	<div class="mui-input-row mui-search">
+    		<!--数据的双向绑定 用户输入什么显示什么-->
+			<input ng-model='filterby' type="search" class="mui-input-clear" placeholder="">
+		</div>
+		<div class="form-group">
+			<button class="btn btn-success" ng-click="key='price';keyBy=!keyBy">价格</button>
+			<button class="btn btn-success" ng-click="key='hot';keyBy=!keyBy">人气</button>
+		</div>
+    </header>
+    <section>
+    	<ul>
+    		<li ng-repeat="data in dataList | myOrderBy: key :keyBy | myFilter:filterby">
+    			<h4>{{data.name}}</h4>
+    		   <p>价格:{{data.price}};&nbsp;&nbsp;&nbsp;人气:{{data.hot}}</p>
+    		</li>
+    	</ul>
+    </section>
+</body>
+<script>
+    var myapp=angular.module("myapp",[]);
+    myapp.controller("myController",function($scope){
+    	$scope.filterby="";
+    	$scope.dataList=[
+    		{name:"iphone7",price:"5000",hot:99},
+    		{name:"iphone6",price:"4000",hot:95},
+    		{name:"iphone5",price:"1500",hot:66},
+    		{name:"iphone4s",price:"700",hot:55},
+    		{name:"小米4",price:"2999",hot:68},
+    		{name:"华为荣耀3C",price:"3500",hot:101},
+    		{name:"OPPOR9",price:"300",hot:10},
+    		{name:"SUMSUNG",price:"1999",hot:55},
+    		{name:"NOKIA",price:"1499",hot:60}
+    	]
+    	});
+    	//可以根据什么玩意排序呢？
+    	myapp.filter("myOrderBy",function(){
+    		return function(arr,key,style){
+    			if(!key){
+    				return arr;
+    			}
+    			var _arr=arr.sort(function(a,b){
+    				var va=a[key];
+    				var vb=b[key];
+    				if(style){
+    					return vb-va;//按从小到大还是从大到小排序
+    				}else{
+    					return va-vb;
+    				}
+    			})
+    			return _arr;
+    		}
+    	})
+    	myapp.filter("myFilter",function(){
+    		return function(arr,s){
+    			if(s==""){
+    				return arr;
+    			}
+    			var _arr=[];
+    				for(var i=0;i<arr.length;i++){
+    					for(j in arr[i]){
+    						var _value=arr[i][j]+""
+    						if(_value.indexOf(s)>=0&&j=="name"){
+    							_arr.push(arr[i]);
+    							break;
+    						}
+    					}
+    				}
+    				return _arr;
+    		}
+    	})
+    	//sort工作原理
+//  	var arr=[
+//		{name:'a',age:12},
+//		{name:'c',age:13},
+//		{name:'e',age:11},
+//		{name:'d',age:10},
+//		{name:'f',age:9},
+//		{name:'b',age:16}
+//	]
+//	
+//	var _arr=arr.sort(function(a,b){		
+//		var va=a.name;
+//		var vb=b.name;
+//		if(va<vb){
+//			return -1;
+//		}else{
+//			return 1;
+//		}	
+//	})
+//	
+//	console.log(_arr)
+</script>
+</html>
+

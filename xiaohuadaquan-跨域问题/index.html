@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script src="js/mui.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    mui.init();
+    </script>	
+</head>
+<style>
+	li{
+        margin:10px 0;
+    }
+</style>
+<body>
+	<div class="a"></div>
+	<ul></ul>
+    <button id='prev'>上一页</button>
+    <button id="next">下一页</button>
+</body>
+<script src="jquery.js"></script>
+<script type="text/javascript">
+//在两个不同的服务器打开页面会造成跨域问题。不要在本地服务器打开
+//一、手机端没有跨域问题
+//1.直接从手机端打开新页面，潜入链接.这种方法比较费劲。所以要在本地服务器打开
+//mui.plusReady(function(){
+//	创建一个新窗口，将网址放进去ok.遇到的问题，苹果时候默认关闭hbuilder局域网和蜂窝移动数据的使用
+//  var self=plus.webview.currentWebview();
+//  var index=plus.webview.create("http://www.baidu.com",'aa',{top:"0px",bottom:"0px"});
+//    	self.append(index);
+//    	index.show();
+//   })
+//2.手机跨域
+//	pages(1,10)
+//	function pages(page,pagesize){
+//		var p=page||1;
+//		var ps=pagesize||10;
+//		$.ajax({
+//			url:"http://zhangchunming.duapp.com/getData/getJson1.php",
+//			data:{
+//				page:p,
+//				pagesize:ps
+//			},
+//			success:function(a){
+//				$('.a').html(a)
+//			}
+//	    })
+//	}
+//二、pc有跨域问题 个人认为cors纯后端服务器的代理方式
+//jsonp处理跨域不一定需要服务器代理。但是服务器代理跨域一定需要jsonp格式获取数据
+//1.jsonp跨域问题，必须前后端结合。pc端使用服务器代理必须使用jsonp格式
+    var num=1;
+    $("#prev").click(function(){
+        num--;
+        if(num<1){
+            num=1;
+        }
+        getJoke(num)
+    })
+    $("#next").click(function(){
+        num++;
+        getJoke(num)
+    })
+    getJoke(num)
+    function getJoke(page,pageSize){
+        var p=page||1;
+        var ps=pageSize||10;
+        $.ajax({
+//          url:"http://zhangchunming.duapp.com/getData/getJson1.php",
+            url:"http://localhost/xiaohuadaquan/getJson1.php",
+            data:{
+                page:1,
+                pagesize:10
+            },
+            dataType:"jsonp",
+            jsonpCallback:"abc",
+            success:function(data){
+                pushData(data.result.data);
+            }
+        })
+    }
+    function pushData(data){
+        var str='';
+        $(data).each(function(){
+            str+='<li>'+this.content+'</li>';
+        })
+        $("ul").html(str)
+    }
+//2.有跨域问题，将文件全部存放在本地服务器中，使用json格式，可以直接获取数据
+//	var num=1;
+//  $("#prev").click(function(){
+//      num--;
+//      if(num<1){
+//          num=1;
+//      }
+//      getJoke(num)
+//  })
+//  $("#next").click(function(){
+//      num++;
+//      getJoke(num)
+//  })
+//  getJoke(num)
+//  function getJoke(page,pageSize){
+//      var p=page||1;
+//      var ps=pageSize||10;
+//      $.ajax({
+//          url:"getJson.php",
+//          data:{
+//              page:1,
+//              pagesize:10
+//          },
+//          dataType:"json",
+////          jsonpCallback:"abc",
+//          success:function(data){
+//          	console.log(data)
+//              pushData(data.result.data);
+//          }
+//      })
+//  }
+//  function pushData(data){
+//      var str='';
+//      $(data).each(function(){
+//          str+='<li>'+this.content+'</li>';
+//      })
+//      $("ul").html(str)
+//  }
+</script>
+</html>

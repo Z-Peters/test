@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="angular.js"></script>
+	<body>
+		<div ng-controller="myController">
+			<p>{{num}}</p>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var myapp=angular.module("myapp",[]);
+		myapp.filter("lastSubstr",function(){
+			return function(data,num){
+				if(data instanceof Array==true){
+					if(num>=4){
+						num=4
+					}
+					var _data=data.slice(data.length-num,data.length)
+				}else if(typeof data=="string"){
+					var _data=data.substr(data.length-num,num)
+				}
+				    return _data;
+				}
+			});
+		myapp.controller("myController",["$scope","$filter",function($scope,$filter){
+			$scope.num=[1,2,34,5]
+			$scope.num=$filter("lastSubstr")($scope.num,3)
+		}])
+	</script>
+</html>

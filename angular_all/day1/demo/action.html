@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body >
+	<h3>
+		挂载全局数据：
+	</h3>
+	<p>1.ng-init</p>
+	<p>2.通过在任何一个控制器里注入$rootScope，然后在它上面挂载的就是全局数据</p>
+	<p>3.通过myapp.run,在回调里注入$rootScope，然后在它上面挂载的就是全局数据</p>
+	<div ng-controller="fatherController">
+		我是秀秀的爸爸--{{name}};我的儿子是--{{sname}}
+		我的爸爸是--{{gname}}
+		<div ng-controller="xiuController">
+			我的爷爷是--{{gname}}；我的名字是--{{name}};我爸爸是--{{fname}}
+   		</div>
+	</div>
+	<div ng-controller="uncleController">
+		我的爸爸是--{{gname}}
+		我是--{{name}}
+	</div>
+   
+   <div ng-controller="grandpaController">
+   		我是--{{name}}
+   </div>
+	
+</body>
+<script src="js/angular.js"></script>
+<script>
+	var myapp=angular.module("myapp",[]);
+	
+	myapp.controller("xiuController",function($scope){
+		$scope.name="秀秀";
+		$scope.fname="秀爸";
+		
+	})
+	myapp.controller("fatherController",function($scope,$rootScope){
+		$scope.name="秀爸";
+		$scope.sname="秀秀";
+		$rootScope.gname="秀爷爷"
+	})
+	myapp.controller("uncleController",function($scope,$rootScope){
+		$scope.name="秀大爷";
+		$rootScope.gname="隔壁王大爷"
+	})
+	myapp.controller("grandpaController",function($scope){
+		$scope.name="秀爷爷";
+	})
+	
+//	myapp.run(function($rootScope){
+//		$rootScope.gname="秀爷爷"
+//	})
+
+
+
+</script>
+</html>

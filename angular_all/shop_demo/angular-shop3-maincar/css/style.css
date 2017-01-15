@@ -1,0 +1,43 @@
+/*通用样式*/
+
+a{
+	cursor: pointer;
+}
+/*头部样式*/
+
+#header{
+	margin-top: 20px;
+}
+
+#header .logo{
+	width: 150px;
+}
+
+section .inpgroup{
+	width: 50%!important;
+	margin: 0 auto;
+}
+
+section .inpgroup .panel-body *{
+	margin: 10px 0;
+}
+
+header .headInpBox{
+	display: none;
+	height: 75px;
+	line-height: 75px;
+}
+
+.hide{
+	display: none!important;
+	
+}
+.show{
+	display: block!important;
+}
+
+
+
+
+
+/*main样式*/

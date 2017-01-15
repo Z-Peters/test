@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script src="../baseJs/angular.js"></script>
+    <script src="../baseJs/jquery.js"></script>
+
+</head>
+<style>
+</style>
+<body>
+    <div ng-controller="myController">
+        {{num}}
+     </div>
+</body>
+<script>
+    var myapp=angular.module("myapp",[]);
+
+	myapp.service("myService",MyServiceFun)
+	function MyServiceFun(){
+		
+	}
+	MyServiceFun.prototype.getRandomNum=function(num1,num2){
+		return Math.random()*(num2-num1)+num1;
+	}
+	
+	myapp.controller("myController",function($scope,myService){
+		$scope.num=myService.getRandomNum(5,10)
+	})
+    
+    
+
+</script>
+</html>

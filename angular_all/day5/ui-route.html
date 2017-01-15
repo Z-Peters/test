@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../baseJs/angular.js"></script>
+    <script src="../baseJs/angular-ui-router.js"></script>
+    <script src="../baseJs/jquery.js"></script>
+</head>
+<style>
+    html,body{margin: 0;padding: 0;height: 100%;}
+    body{display: flex;flex-flow: column nowrap;justify-content: space-between;}
+    header{text-align: center;flex-grow: 0;border-bottom: 1px solid #333;}
+    footer{height:50px;line-height:50px;flex-grow: 0;display: flex;justify-content: space-between;border-top: 1px solid #333;}
+    footer a{flex-grow: 1;text-align: center}
+    section{flex-grow: 1;}
+</style>
+<body>
+    <header>
+        <h3>header</h3>
+    </header>
+    <section>
+        <div ui-view></div>
+    </section>
+    <footer ng-controller="myController">
+        <a href="#/weixin">微信</a>
+        <a href="#/contact">通讯录</a>
+        <a href="#/mine">我</a>
+     </footer>
+</body>
+<script>
+    var myapp=angular.module("myapp",["ui.router"]);
+   myapp.config(["$stateProvider",function($stateProvider){
+       $stateProvider.state("weixin",{//第一个参数是给这个路由的部分起名字
+           url:"/weixin",
+           templateUrl:"template/weixin.html"
+       }).state("contact",{
+           url:"/contact",
+           templateUrl:"template/contact.html"
+       }).state("mine",{
+           url:"/mine",
+           templateUrl:"template/mine.html"
+       }).state("mine.gn",{
+           url:"/gn",
+           templateUrl:"template/gn.html"
+       }).state("mine.gw",{
+       		url:"/gw",
+       		templateUrl:"template/gw.html"
+       }).state("mine.yl",{
+       		url:"/yl",
+       		templateUrl:"template/yl.html"
+       })
+   }])
+
+//    myapp.config(["$routeProvider",function($routeProvider){
+//        $routeProvider.when("/weixin",{
+//            templateUrl:"template/weixin.html",
+//            controller:"weixinController"
+//        }).when("/contact",{
+//            templateUrl:"template/contact.html",
+//            controller:"contactController"
+//        }).when("/mine",{
+//            templateUrl:"template/mine.html",
+//            controller:"mineController"
+//        }).when("/contactDetail",{
+//            templateUrl:"template/contactDetail.html",
+//            controller:"contactDetailController"
+//        }).otherwise({
+//            redirectTo:"/weixin"
+//        })
+//    }])
+
+    myapp.controller("myController",["$scope",function($scope){
+
+
+    }])
+    myapp.controller("weixinController",["$scope",function($scope,$stateParams){
+		$scope.name='allen'
+    }])
+</script>
+</html>

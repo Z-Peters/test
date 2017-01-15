@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <h3>控制器</h3>
+    <p>想要使控制器controller，首先需要有一个模块，控制器是要挂载到模块上的</p>
+    <p>定义angular 的主模块  定义主模块的时候，第一个参数要写angular入口的值（ ng-app的值）</p>
+	<div ng-init="age=12;name='allen'">
+		年龄是:{{age}};名字是:{{name}};
+	</div>
+	{{1+2}}
+	<div ng-controller="myController">
+		{{sex}}
+	</div>
+	<div ng-controller="yourController">
+		
+	</div>
+</body>
+<script src="js/angular.js"></script>
+<script>
+	//定义angular 的主模块  定义主模块的时候，第一个参数要写angular入口的值（ ng-app的值）
+    var myapp=angular.module("myapp",[]);
+//  //控制器定义的方法，第一个参数是控制器的名字，第二个参数是回调函数，回调函数有形参$scope，只要数据挂载在$scope上，就可以在html中，这个控制器的作用范围内起作用
+//	
+	myapp.controller("myController",function($scope){
+		$scope.sex='male';
+	})
+	
+	 myapp.controller("yourController",function($scope){
+		
+	})
+	
+</script>
+</html>

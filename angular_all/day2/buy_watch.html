@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../baseJs/angular.js"></script>
+</head>
+<body>
+  <section ng-controller="myController">
+  	单价：<input ng-model="latiao.price" type="number" /><br />
+  	数量：<input ng-model="latiao.num" type="number" /><br />
+  	价格：<span>{{sum()}}</span><br />
+  	运费：<span>{{latiao.yf}}</span><br />
+  	总计：<span>{{sum()+latiao.yf}}</span>
+  </section>
+</body>
+<script>
+   var myapp=angular.module("myapp",[]);
+   myapp.controller("myController",function($scope){
+   	  $scope.latiao={
+   	  	price:20,
+   	  	num:0,
+   	  	yf:10
+   	  }
+   	  $scope.sum=function(){
+   	  	return $scope.latiao.price*$scope.latiao.num;
+   	  }
+   	 
+   	 //监听对象的一个属性的变化，回调函数的第一个参数是改变后的值，第二个参数是改变前的值
+// 	 $scope.$watch('latiao.num',function(newVal,oldVal){
+// 	 	console.log(newVal+"_"+oldVal)
+// 	 })
+   	 
+   	 //监听一个对象的方法，第三个参数写成true
+// 	 $scope.$watch('latiao',function(newVal,oldVal){
+// 	 	console.log(newVal)
+// 	 	console.log(oldVal)
+// 	 },true)
+   	  
+   	  //监听函数的返回值的方法
+   	 $scope.$watch($scope.sum,function(newVal,oldVal){
+     	 if(newVal>100){
+   	  		$scope.latiao.yf=0;
+   	  	}else{
+   	  		$scope.latiao.yf=10;
+   	  	}
+   	 })
+   	 
+   })
+</script>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script src="../baseJs/angular.js"></script>
+    <script src="../baseJs/jquery.js"></script>
+
+</head>
+<style>
+</style>
+<body ng-controller="myController">
+	<h3>自定义指令</h3>
+	<p>restrict：E->element  C->class  A->attribute M->注释 代表的是指令的使用方法</p>
+	<p>template 指令要替换的内容 ，可以解析标签</p>
+	<p>templateUrl 指令要替换的内容代码片段的路径 </p>
+	<p>templateUrl替换模板的时候，和ng-include差不多，内部也可以写表达式，其他的指令，也可以输出数据</p>
+	<p>默认情况下，会在媒介标签内部去替换内容，这个时候通过注释来使用就不可以了，可以设置replace为true，会把整个媒介标签都给替换掉，通过注释也可以使用</p>
+	<p>还有一个注意到的地方，定义自定义指令名字中间有‘-’的时候，在js里要去掉‘-’，后面字母大小</p>
+
+	<p>如果使用了replace true的话，那么template属性里必须是标签包含的</p>
+	
+	<p>如果要显示媒介标签内部原有的内容，应该把transclude属性开启，然后在模板里去使用ng-transclude这个指令，使用这个指令的地方就会替换成媒介标签内部原有内容</p>
+	<hello>123</hello>
+	<div class="hello">456</div>
+	<div hello>789</div>
+	
+	
+	
+	<div my-apple></div>
+	<my-apple></my-apple>
+	
+	
+	<div my-header>123</div>
+</body>	
+<script>
+    var myapp=angular.module("myapp",[]);
+	
+//	myapp.filter("filterName",function(){
+//		return function(){
+//			
+//		}
+//	})
+	myapp.controller("myController",function($scope){
+		$scope.name="xiuxiu";
+	})
+
+	myapp.directive('hello',function(){
+		return {
+			transclude:true,
+			restrict:'ECMA',//E->element  C->class  A->attribute M->注释...
+			template:'<span class="ng-transclude"></span><h1>Hello,world</h1><ng-transclude></ng-transclude>',
+//			replace:true
+		}
+	})
+	
+	myapp.directive('myApple',function(){
+		return {
+			restrict:'ECMA',//E->element  C->class  A->attribute M->注释...
+			template:'<h1>Hello,Apple</h1>',
+			replace:true
+		}
+	})
+	
+	myapp.directive('myHeader',function(){
+		return {
+			transclude:true,
+			restrict:'ECMA',//E->element  C->class  A->attribute M->注释...
+			templateUrl:"./header.html",
+//			replace:true
+		}
+	})
+
+
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+

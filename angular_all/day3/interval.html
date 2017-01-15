@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script src="../baseJs/angular.js"></script>
+    <script src="../baseJs/jquery.js"></script>
+
+</head>
+<style>
+	.imgBox{
+		width: 200px;
+		height: 200px;
+		border-radius: 10px;
+		overflow: hidden;
+		box-shadow: 0px 0px 10px #ccc;
+		position: relative;		
+	}
+	.imgBox img{
+		display: block;
+		width: 250px;
+		border-radius: 10px;
+	}
+	input,button{
+		display: block;
+		width: 200px;
+		margin: 10px 0px;
+		border-radius: 5px;
+		border: 1px solid #f60;
+		background: none;
+		outline: none;
+		padding: 5px;
+	}
+	input{
+		box-sizing: border-box;
+	}
+	button{
+		background: #f60;
+		color: #fff;
+	}
+	.imgBox p{
+		position: absolute;
+		left: 0;right: 0;top: 0;bottom: 0;margin: auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: rgba(0,0,0,0.4);
+		color: #fff;
+	}
+</style>
+<body>
+    <div ng-controller="myController">
+     	<div class="imgBox">
+     		<img src="4.jpg" alt="" />
+     		<p ng-show='flag'>
+     			还有<span style="font-size: 1.5em;">{{time}}</span>秒
+     		</p>
+     	</div>
+     	<input ng-disabled='flag' type="number" name="" id="" value="" />
+     	<button ng-disabled='flag'>去结算</button>
+     	<p ng-if='flag'>我会隐藏~~~</p>
+     </div>
+     
+</body>
+<script>
+    var myapp=angular.module("myapp",[]);
+    myapp.controller("myController",["$scope",'$interval',function($scope,$interval){
+       $scope.flag=true;
+       $scope.time=5;
+       var timer=$interval(function(){
+       		$scope.time--;
+       		if($scope.time==0){
+       			$interval.cancel(timer);
+       			$scope.flag=false;
+       		}
+       },1000)
+    }])
+    
+    
+    
+    
+    
+    
+
+    
+</script>
+</html>

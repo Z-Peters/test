@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app='myapp'>
+	<head>
+		<meta charset="UTF-8">
+		<title>angular商店</title>
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+	<body ng-controller="bController">
+		<!--公共的头部-->
+		<header>this is header</header>
+		
+		
+		<!--路由切换的section-->
+		<section ng-view>
+			
+		</section>
+	</body>
+	<script src="js/lib/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/lib/angular.route.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/lib/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/controller.js" type="text/javascript" charset="utf-8"></script>
+</html>

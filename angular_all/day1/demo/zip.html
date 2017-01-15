@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    
+</head>
+<body>
+	<h3>因为控制器里注入的服务虽然是形参名字不能改变，所以在压缩的时候可能会出问题，所以angular给提出了一种解决的方式</h3>
+	<p>
+		myapp.controller("myController",['$scope','$rootScope','$timeout',function($scope,$rootScope,$timeout){<br/>
+		$scope.name="xiuxiu"<br/>
+		$rootScope.fname="xiuxiuba"<br/>
+		$timeout(function(){<br/>
+			$scope.name="xiuxiumei"<br/>
+		},1000)<br/>
+	}])
+	</p>
+  	<div ng-controller="myController">
+  		<p ng-bind="name"></p>
+  		<p ng-bind="fname"></p>
+  	</div>
+</body>
+<script src="js/angular.js"></script>
+<script>
+    var myapp=angular.module("myapp",[]);
+//	myapp.controller("myController",function(a,b){
+//		a.name="xiuxiu"
+//	})
+	myapp.controller("myController",['$scope','$rootScope','$timeout',function($scope,$rootScope,$timeout){
+		$scope.name="xiuxiu"
+		$rootScope.fname="xiuxiuba"
+		$timeout(function(){
+			$scope.name="xiuxiumei"
+		},1000)
+	}])
+</script>
+</html>

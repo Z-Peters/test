@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../baseJs/angular.js"></script>
+</head>
+<body>
+<!--//  | 管道符-->
+   <div ng-controller="myController">
+   		<!--使用过滤器：-->
+   		<p>货币过滤器  currency，把数字格式数字转换成货币格式的，后面的参数可以控制前面的符号</p>
+ 		单价：{{price | currency:'￥'}}<br />
+ 		<p ng-bind="price | currency"></p>
+ 		<hr />
+ 		<p>数值过滤器  number  默认：小数位超过三位就留三位，不超过的话不改,参数写几就留几位，遵循四舍五入</p>
+ 		<p>{{pi | number}}</p>
+ 		<p>{{100.00000001 | number}}</p>
+ 		<p>{{100.01 | number}}</p>
+ 		<p>{{pi | number:4}}</p>
+ 		<p>{{2| number:3}}</p>
+ 		
+ 		<hr />
+ 		<p>大小写过滤器    lowercase uppercase</p>
+ 		<p>{{'allen' | uppercase}}</p>
+ 		<p>{{'ALLEN' | lowercase}}</p>
+ 		
+ 		
+ 		<hr />
+ 		<p>json 过滤器     可以让数据以json格式来输出，这个时候就可以用pre标签了呀</p>
+ 		<p><pre>{{obj}}</pre></p>
+ 		<p><pre>{{obj | json}}</pre></p>
+ 		
+ 		
+ 		<hr />
+ 		<p>limitTo 截取的过滤器，从头截取数据，默认不截取，参数是几就从头截几位 数字，数组，字符串,如果参数大于length，返回原数据，写成负数，可以从后面截取</p>
+ 		<p>{{[1,2,3,4,5] | limitTo}}</p>
+ 		<p>{{[1,2,3,4,5] | limitTo:3}}</p>
+ 		<p>{{'abcdefg' | limitTo:3}}</p>
+ 		<p>{{123456 | limitTo:3}}</p>
+ 		<p>{{[1,2,3]| limitTo:4}}</p>
+ 		<p>{{'abcdefg'| limitTo:-4}}</p>
+ 		
+ 		
+ 		
+ 		<hr />
+ 		<p>date 时间日期过滤器   默认：Jan 5, 2017</p>
+ 		<p>{{time | date : 'hh'}}:{{time | date : 'mm'}}:{{time | date : 'ss'}}</p>
+ 		
+ 		<hr />
+ 		<p>orderBy   排序  默认不做排序   第二个参数确定排序的方式，值转换成布尔值之后为true，就从大到小，为false就从小到大，默认从小到大 </p>
+ 		<p>{{dataList}}</p>
+ 		<p>{{dataList | orderBy}}</p>
+ 		<p>{{dataList | orderBy:'name'}}</p>
+ 		<p>{{dataList | orderBy:'name':false}}</p>
+ 		<p>{{dataList | orderBy:'name':1}}</p>
+ 		<p>{{dataList | orderBy:'name':true}}</p>
+ 		
+ 		<hr />
+ 		<p>filter  筛选 把属性值里包含某个字符的元素保留下来,只针对值</p>
+ 		<p>{{dataList | filter :1}}</p>
+ 		<p>{{dataList | filter :'e'}}</p>
+ 		<p>{{dataList | filter :'x'}}</p>
+ 		<p>{{dataList | filter :'h'}}</p>
+ 		
+ 		
+ 		
+ 		<hr />
+ 		<p>html的部分同时使用多个过滤器去过滤某一个数据</p>
+ 		<p>‘12345’-》‘123’-》123.00</p>
+ 		<p>{{'12345' | limitTo:3 |number:2}}</p>
+ 		<!--<p>{{'abcdefg' | limitTo:3 |number:2}}</p>-->
+ 		
+ 		<hr />
+ 		<p>控制器里使用过滤器</p>
+ 		<p>需要注入$filter服务，$filter这是一个函数，参数是要使用的过滤器的名字 eq:$filter('number') 这样的话就会返回一个对应的过滤器的函数，然后再按照过滤器使用规则去使用eq：$filter('orderBy')($scope.dataList,'name',true),注意：操作的其实复制之后的数据，也就是说，过滤之后会返回一个过滤之后的值，需要重新赋值</p>
+ 		<p>{{num}}</p>
+ 		<p>{{_dataList}}</p>
+ 		<!--<p>{{123456 | myLimit :3}}</p>-->
+   </div>
+</body>
+<script>
+    var myapp=angular.module("myapp",[]);
+    myapp.controller("myController",["$scope",'$filter',function($scope,$filter){
+       $scope.price=10000;
+       $scope.pi=Math.PI;
+       $scope.obj={
+       	name:"xiuxiu",
+       	age:73,
+       	sex:"female"
+       }
+       $scope.time=new Date().getTime();
+       setInterval(function(){
+       	$scope.time=new Date().getTime();
+       	$scope.$apply()
+       },1000)
+       
+       $scope.dataList=[
+       	{name:"xiaoming",age:10},
+       	{name:"xiaohua",age:19},
+       	{name:"xiaolata",age:6}
+       ]
+       $scope._dataList=[
+       	{name:"xiaoming",age:10},
+       	{name:"xiaohua",age:19},
+       	{name:"xiaolata",age:6}
+       ]
+       
+      	$scope.num=12345;
+      	$scope.num=$filter('limitTo')($scope.num,3);
+      	$scope.num=$filter('number')($scope.num,2);
+      	$scope._dataList=$filter('orderBy')($scope._dataList,'name',true)
+      	console.log($filter)
+//    	$scope.num=_filter('myLimit')($scope.num,3);
+//    	function _filter(name){
+//    		if(name=='myLimit'){
+//    			return function(data,num){
+//    				var _data=data.toString();
+//    				return _data.substr(0,num);
+//    			}
+//    		}
+//    	}
+       
+    }])
+   
+</script>
+</html>

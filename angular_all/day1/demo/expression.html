@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    
+</head>
+<body>
+	<h3>ng-app  （指令）</h3>
+	<p>划分angular 的作用范围，划地盘  只有在ng-app标签内部才能使用angular的功能，ng-app只能有一个！！</p>
+	<hr />
+	<h3>表达式</h3>
+	<p>用双花括号包裹，例如 {{1+2}} ,加减乘除余,输出数组、字符串等（输出对象会出问题），数组取值，对象取值,定义变量</p>
+	<h3>ng-init指令</h3>
+	<p>可以定义变量</p>
+	<h3>ng-bind指令</h3>
+	<p>输出数据（绑定数据），类似与{{}}表达式，但是表达式当angular.js放在底部的时候，会先暴露出{{}}，这样用户体验不好</p>
+	<div ng-app>
+		<div ng-init="sex='male'">
+			{{1+2}}<br />
+			{{2*2}}<br />
+			{{2-2}}<br />
+			{{2/2}}<br />
+			{{5%3}}<br />
+			{{[1,2,3]}}<br />
+			{{[1,2,3][2]}}<br />
+			{{{name:"allen"}.name}}<br />
+			{{'myname'}}<br />
+			{{age=11}}<br />
+			{{age}}<br />
+			{{sex}}<br />
+			<div ng-bind="1+2"></div>
+		</div>
+		
+	</div>
+	
+	{{3+4}}
+	<p>第二个入口就不起作用了：</p>
+	<div ng-app>
+		{{5+6}}
+	</div>
+</body>
+<script src="../../baseJs/angular.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    
+</script>
+</html>

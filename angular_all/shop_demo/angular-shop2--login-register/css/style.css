@@ -1,0 +1,24 @@
+#header{
+	margin-top: 20px;
+}
+
+#header .logo{
+	width: 150px;
+}
+
+section .inpgroup{
+	width: 50%!important;
+	margin: 0 auto;
+}
+
+section .inpgroup .panel-body *{
+	margin: 10px 0;
+}
+
+
+.hide{
+	display: none!important;
+}
+.show{
+	display: block!important;
+}

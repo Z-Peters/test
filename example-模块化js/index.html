@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+	</head>
+
+	<link rel="stylesheet" type="text/css" href="css/swiper-3.3.1.min.css" />
+	<style>
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+		}
+		ul,
+		li {
+			padding: 0;
+			margin: 0;
+			list-style: none;
+		}
+		
+		li {
+			display: flex;
+			justify-content: space-around;
+			border: 1px solid #333;
+		}
+		
+		li img {
+			width: 30vw;
+			height: 30vw;
+		}
+	</style>
+	<body>
+		<section id="wrapper" style="height: 100%">
+			<div id="scroller">
+				<section class="swiper-container">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide"><img src="img/img1.jpg" /></div>
+						<div class="swiper-slide"><img src="img/img2.jpg" /></div>
+						<div class="swiper-slide"><img src="img/img3.jpg" /></div>
+						<div class="swiper-slide"><img src="img/img4.jpg" /></div>
+					</div>
+					<div class="swiper-pagination"></div>
+				</section>
+				<section>
+					<ul>
+					</ul>
+				</section>
+			</div>
+		</section>
+
+	</body>
+	<script src="js/require.js" data-main="js/app"></script>
+
+</html>

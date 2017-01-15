@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app='myapp'>
+	<head>
+		<meta charset="UTF-8">
+		<title>angular商店</title>
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/lib/angular.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body ng-controller="bController">
+		<!--公共的头部-->
+		<header id="header" class="container-fluid" style="">
+			<div class="panel panel-primary">
+				<div class="panel-body clearfix">
+					<img class="pull-left logo" src="img/logo.jpg"/>
+					<h2 class="pull-left">大海水果店</h2>
+					<div class="pull-right" ng-class="userName?'hide':'show'" style="line-height: 75px;">
+						<a href="#/login" class="btn btn-success">登陆</a>
+						<a href="#/register" class="btn btn-success">注册</a>
+					</div>
+					<div class="pull-right" ng-class="userName?'show':'hide'" style="line-height: 75px;">
+						<p style="display: inline-block;">欢迎<span ng-bind="userName"></span>回来</p>
+						<button ng-click="exit()" class="btn btn-success">退出登陆</button>
+					</div>
+				</div>
+			</div>
+		</header>
+		
+		
+		<!--路由切换的section-->
+		<section ng-view class="container-fluid">
+			
+		</section>
+	</body>
+	
+	<script src="js/lib/angular.route.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/lib/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/controller.js" type="text/javascript" charset="utf-8"></script>
+</html>

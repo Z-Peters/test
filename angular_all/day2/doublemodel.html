@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <script src="../baseJs/angular.js"></script>
+</head>
+<body>
+	<h3>数据双向绑定！！！！</h3>
+	<p>通过ng-model把V层上的一个元素与M层的一个数据牢牢绑定在一起，M层或者V层只要一改变，都会改变</p>
+    <div ng-controller="myController" class="container">
+   		<!--<input ng-model='uname' class="form-control" type="text" name="" id="" value="" />
+   		<p ng-bind="uname"></p>
+   		<input ng-model='isChecked' class="" type="checkbox" name="" id="" value="" />{{isChecked}}
+   		男：<input ng-model='sex' class="" type="radio" name="" id="" value="male" />
+   		女：<input ng-model='sex' class="" type="radio" name="" id="" value="female" />{{sex}}<br />
+   		<textarea ng-model='info' class="form-control" name="" rows="" cols=""></textarea>{{info}}-->
+	   <form >
+	   		<div class="form-group">
+	   			<label for="">用户名：</label>
+	   			<input ng-model='uname' type="text" name="" id="" value="" />
+	   		</div>
+	   		<div class="form-group">
+	   			<label for="">密码：</label>
+	   			<input ng-model='upass' type="password" name="" id="" value="" />
+	   		</div>
+	   		<button ng-click="submit()" type="button" class="btn btn-success">submit</button>
+	   		<button type="reset" class="btn btn-default">reset</button>
+	   </form>
+    
+    
+    </div>
+   
+</body>
+<script>
+    var myapp=angular.module("myapp",[]);
+	
+	myapp.controller("myController",['$scope',function($scope){
+		$scope.submit=function(){
+			alert($scope.uname+"_"+$scope.upass)
+		}
+	}])
+	
+	
+</script>
+</html>

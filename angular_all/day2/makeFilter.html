@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../baseJs/angular.js"></script>
+</head>
+<body>
+	<p>自定义的过滤器要挂载在模块上，myapp.filter('filterName',function(){}),在回调函数里return出一个真正的处理数据的函数a，并且需要有返回值，不要操作原数据，a传入的第一个参数，就是要处理的数据</p>
+    <div ng-controller="myController">
+        {{'allen' | firstUpper}}
+        <p ng-bind="'allen' | firstUpper"></p>
+        {{name}}
+        <p>{{'abcdefg' | someUpper:4}}</p>
+<!--        {{'abcdefg' | myLimit:3:2}}-->
+    </div>
+</body>
+<script>
+
+    var myapp=angular.module("myapp",[]);
+//	someUpper 传入几就前几位大写
+   	myapp.filter('firstUpper',function(){
+   		return function(data){
+   			return data.charAt(0).toUpperCase()+data.substr(1)
+   		}
+   	})
+   	myapp.filter('someUpper',function(){
+   		return function(data,num){
+   			var num=num||1;
+   			return data.substr(0,num).toUpperCase()+data.substr(num)
+   		}
+   	})
+   	myapp.controller("myController",function($scope,$filter){
+   		$scope.name='xiuxiu';
+// 		$scope.name=$filter('firstUpper')($scope.name);
+   		$scope.name=$filter('someUpper')($scope.name,4);
+   	})
+   	
+   	
+   
+   	
+   	
+</script>
+</html>

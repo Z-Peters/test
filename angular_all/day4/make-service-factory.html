@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+	
+    <script src="../baseJs/angular.js"></script>
+   
+    <script src="../baseJs/jquery.js"></script>
+
+</head>
+<style>
+</style>
+<body>
+	<h3>自定义服务--factory</h3>
+	<p>在回调函数里return什么，服务就是什么</p>
+	<p>自定义的服务里可以注入其他的服务</p>
+    <div ng-controller="myController">
+
+     </div>
+</body>
+<script>
+    var myapp=angular.module("myapp",[]);
+	
+	myapp.factory("myFilter",function(){//自定义的一个filter服务，内部有几个过滤器可以使用
+		return function(filtername){
+			switch(filtername){
+				case 'firstUpper':
+					return function(data){
+						var _data=data.toLowerCase();
+						return  _data.charAt(0).toUpperCase()+_data.substr(1);
+					}
+				break;
+				case 'someUpper':
+					return function(data,num){
+						var _data=data.toLowerCase();
+						return  _data.substr(0,num).toUpperCase()+_data.substr(num);
+					}
+				break;
+			}
+		}
+	})
+	
+	myapp.factory("myService",function(){
+		return function(num1,num2){			
+			return Math.random()*(num2-num1)+num1;
+		}
+	})
+	
+	
+	myapp.factory('myHttp',['$http',function($http){//自定义的改良的http服务，也就是自定义的服务里可以注入其他的服务
+		return function(url,params,sfn,efn){
+			var efn=efn||function(message){console.log(message)}
+			$http({
+				url:url,
+				method:"get",
+				params:params
+			}).success(sfn).error(efn)
+		}
+	}])
+	
+	
+	myapp.controller("myController",function($filter,myFilter,myService,myHttp){
+		var str='abcdef';
+		str=$filter('uppercase')(str);//->ABCDEF
+		str=myFilter('firstUpper')(str)//->Abcdef
+		str=myFilter('someUpper')(str,3)//->ABCdef
+		console.log(str)
+		var num=myService(5,10);
+		var num2=myService(10,20)
+		myHttp('http://datainfo.duapp.com/shopdata/getclass.php',{},function(data){
+			console.log(data)
+		});
+	}) 	
+	
+</script>
+</html>

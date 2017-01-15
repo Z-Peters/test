@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css"/>
+    <script src="../baseJs/angular.js"></script>
+
+</head>
+<style>
+</style>
+<body>
+    <section style="padding: 20px;" class="container" ng-controller="myController">
+       <input ng-change='change()' ng-model='keywords' class="form-control" type="text" />
+       <ul class="list-group bg-info" style="margin-top: 20px;">
+       		<!--<a href='https://www.baidu.com/s?ie=utf-8&wd={{data}}' class="list-group-item" ng-repeat='data in dataList'>{{data}}</a>-->
+       		<a ng-click="search(data)" class="list-group-item" ng-repeat='data in dataList'>{{data}}</a>
+       		
+       </ul>
+    </section>
+</body>
+<script>
+
+    var myapp=angular.module("myapp",[]);
+    myapp.controller("myController",["$scope","$http",function($scope,$http){
+		
+//		https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=ab
+		$scope.dataList=[];
+		$scope.change=function(){
+			$http({
+				url:"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?cb=JSON_CALLBACK",
+				method:"jsonp",
+				params:{
+					wd:$scope.keywords
+				}
+			}).success(function(data){
+				$scope.dataList=data.s
+			}).error(function(message){
+				console.log(message)
+			})
+		}
+		
+		$scope.search=function(data){
+			window.location.href="https://www.baidu.com/s?ie=utf-8&wd="+data
+		}
+				
+    }])
+</script>
+</html>

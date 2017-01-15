@@ -1,0 +1,10 @@
+<h3>这是通讯录</h3>
+<style>
+    .con_ul li{display: flex;justify-content: space-between;}
+</style>
+<ul class="con_ul">
+    <li  ng-repeat="data in dataList" ng-click="toDetail(data.name,data.tel)">
+        <p>{{data.name}}</p>
+        <p>{{data.tel}}</p>
+    </li>
+</ul>
